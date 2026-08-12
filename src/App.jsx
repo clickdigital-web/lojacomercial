@@ -1,4 +1,25 @@
+import { useState, useRef } from 'react'
+
 export default function App() {
+  const [unlocked, setUnlocked] = useState(false)
+  const clickCount = useRef(0)
+  const timerRef = useRef(null)
+
+  const handleLogoClick = () => {
+    clickCount.current += 1
+
+    if (clickCount.current >= 3) {
+      setUnlocked(true)
+      clickCount.current = 0
+      if (timerRef.current) clearTimeout(timerRef.current)
+    } else {
+      if (timerRef.current) clearTimeout(timerRef.current)
+      timerRef.current = setTimeout(() => {
+        clickCount.current = 0
+      }, 1500)
+    }
+  }
+
   const assets = [
     {
       title: 'Logo Click Branca',
@@ -13,6 +34,22 @@ export default function App() {
       bgTheme: 'light',
     },
   ]
+
+  if (!unlocked) {
+    return (
+      <div className="camo-screen">
+        <span className="camo-label">domínio gerido por:</span>
+        <div className="camo-logo-wrapper" onClick={handleLogoClick}>
+          <img
+            src="/wp-content/uploads/2025/09/logo-click-branca.png"
+            alt="Logo Click"
+            className="camo-logo"
+            draggable="false"
+          />
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="container">

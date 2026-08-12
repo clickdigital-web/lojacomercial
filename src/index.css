@@ -165,3 +165,62 @@ p.subtitle {
   font-size: 0.8rem;
   color: #64748b;
 }
+
+/* Camouflage Screen Styles */
+.camo-screen {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #070714;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+  user-select: none;
+  -webkit-user-select: none;
+  animation: camoFadeIn 0.3s ease-out;
+}
+
+.camo-label {
+  font-size: 0.95rem;
+  color: #7d889b;
+  letter-spacing: 0.05em;
+  margin-bottom: 1.5rem;
+  font-weight: 400;
+  text-align: center;
+}
+
+.camo-logo-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 1.25rem;
+  border-radius: 16px;
+  transition: transform 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.camo-logo-wrapper:active {
+  transform: scale(0.96);
+}
+
+.camo-logo {
+  max-width: 280px;
+  width: 75vw;
+  height: auto;
+  object-fit: contain;
+  pointer-events: none;
+  filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.5));
+}
+
+@keyframes camoFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
