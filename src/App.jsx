@@ -2,6 +2,7 @@ import { useState, useRef } from 'react'
 
 export default function App() {
   const [unlocked, setUnlocked] = useState(false)
+  const [copiedPath, setCopiedPath] = useState(null)
   const clickCount = useRef(0)
   const timerRef = useRef(null)
 
@@ -18,6 +19,22 @@ export default function App() {
         clickCount.current = 0
       }, 1500)
     }
+  }
+
+  const handleCopy = (path) => {
+    const fullUrl = window.location.origin + path
+    navigator.clipboard.writeText(fullUrl).then(() => {
+      setCopiedPath(path)
+      setTimeout(() => {
+        setCopiedPath((curr) => (curr === path ? null : curr))
+      }, 2000)
+    }).catch(() => {
+      // Fallback
+      setCopiedPath(path)
+      setTimeout(() => {
+        setCopiedPath(null)
+      }, 2000)
+    })
   }
 
   const assets = [
@@ -72,14 +89,23 @@ export default function App() {
             <div className="asset-info">
               <div className="asset-name">{asset.title}</div>
               <div className="asset-path">{asset.path}</div>
-              <a
-                href={asset.path}
-                target="_blank"
-                rel="noreferrer"
-                className="link-btn"
-              >
-                Abrir Imagem Direta ↗
-              </a>
+              <div className="card-actions">
+                <a
+                  href={asset.path}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="btn btn-secondary"
+                >
+                  Abrir Direto ↗
+                </a>
+                <button
+                  type="button"
+                  onClick={() => handleCopy(asset.path)}
+                  className={`btn btn-primary ${copiedPath === asset.path ? 'copied' : ''}`}
+                >
+                  {copiedPath === asset.path ? 'Copiado! ✓' : 'Copiar Link 📋'}
+                </button>
+              </div>
             </div>
           </div>
         ))}
