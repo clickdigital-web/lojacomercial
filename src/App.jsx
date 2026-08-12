@@ -50,12 +50,6 @@ export default function App() {
       path: '/wp-content/uploads/2025/09/logo-click-preta.png',
       bgTheme: 'light',
     },
-    {
-      title: 'Favicon Click Digital',
-      filename: 'favicon-click-digital.png',
-      path: '/favicon-click-digital.png',
-      bgTheme: 'dark',
-    },
   ]
 
   if (!unlocked) {
